@@ -1,0 +1,30 @@
+name: resume_analyzer
+
+services:
+  front-end:
+    image: medatta0/resume-analyzer-front-end:latest
+    # build:
+    #   context: ./front-end
+    #   dockerfile: dockerfile
+    container_name: front-end
+    ports:
+      - 5173:5173
+    networks:
+      - resume_analyzer_network
+
+  back-end:
+    image: medatta0/resume-analyzer-back-end:latest
+    # build:
+    #   context: ./back-end
+    #   dockerfile: dockerfile
+    container_name: back-end
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    networks:
+      - resume_analyzer_network
+
+networks:
+  resume_analyzer_network:
+    driver: bridge
